@@ -1,1 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NishAI – Discover What's Missing</title>
+  <link rel="icon" href="favicon.ico" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f7fa;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    h1 {
+      color: #222;
+    }
+
+    textarea {
+      width: 100%;
+      max-width: 500px;
+      height: 100px;
+      margin-top: 1rem;
+      padding: 1rem;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    button {
+      margin-top: 1rem;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #4a90e2;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #357ab8;
+    }
+
+    #result {
+      margin-top: 2rem;
+      font-size: 18px;
+      white-space: pre-line;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <h1>🤖 NishAI – Discover What's Missing</h1>
+  <p>Ask NishAI to find a niche the world still needs...</p>
+
+  <textarea id="prompt" placeholder="e.g. What is missing in education, health or travel?"></textarea>
+  <br />
+  <button onclick="askNishAI()">Ask NishAI</button>
+
+  <div id="result"></div>
+
+  <script>
+    async function askNishAI() {
+      const prompt = document.getElementById('prompt').value;
+      const resultDiv = document.getElementById('result');
+      resultDiv.textContent = '⏳ Thinking...';
+
+      try {
+        const response = await fetch('https://YOUR-NGROK-URL.ngrok.io/ask', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ prompt })
+        });
+
+        const data = await response.json();
+        const message = data.choices?.[0]?.message?.content || '⚠️ Unexpected response.';
+        resultDiv.textContent = message;
+      } catch (error) {
+        resultDiv.textContent = '⚠️ Error: ' + error.message;
+      }
+    }
+  </script>
+</body>
+</html>
 
