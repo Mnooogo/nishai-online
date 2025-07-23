@@ -1,91 +1,408 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NishAI – Discover What's Missing</title>
-  <link rel="icon" href="favicon.ico" />
+
+  <!-- SEO / Google -->
+  <meta name="description" content="Your AI Wellness Assistant – Holistic guidance based on German New Medicine and intuitive awareness." />
+  <meta name="keywords" content="AI wellness assistant, holistic health, German New Medicine, mindfulness, emotional healing, GNM, self-awareness">
+  <meta name="author" content="Zdrave-da.com">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="AI Wellness Assistant – Your Inner Guide">
+  <meta property="og:description" content="Speak with an empathetic AI helper inspired by holistic wisdom and natural healing principles.">
+  <meta property="og:image" content="https://zdrave-da.com/aiwoman/featured.jpg">
+
+
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="AI Wellness Assistant – Your Inner Guide">
+  <meta name="twitter:description" content="Holistic, emotional and intuitive support by an AI companion.">
+  <meta name="twitter:image" content="https://zdrave-da.com/aiwoman/ai-helpe.png">
+
+ 
+
+  <title>GNM AI Wellness Assistant</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f5f7fa;
-      padding: 2rem;
-      text-align: center;
+    html, body {
+      margin: 0;
+      height: 100%;
+      background: black;
+      font-family: "Segoe UI", sans-serif;
+      overflow: hidden;
     }
-
-    h1 {
-      color: #222;
-    }
-
-    textarea {
+    video, #transitionImage {
+      position: absolute;
+      inset: 0;
       width: 100%;
-      max-width: 500px;
-      height: 100px;
-      margin-top: 1rem;
-      padding: 1rem;
-      font-size: 16px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
+      height: 100%;
+      object-fit: cover;
+      transition: opacity 1s ease;
+      z-index: 0;
+    }
+    video { opacity: 1; }
+    #transitionImage { opacity: 0; display: none; }
+
+    .laser-container {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+    }
+    .laser-beam {
+      position: absolute;
+      top: -130%;
+      width: 3px;
+      height: 340%;
+      background: linear-gradient(180deg,
+        rgba(255,0,255,0) 0%,
+        rgba(255,0,255,0.8) 25%,
+        rgba(0,255,255,0.8) 75%,
+        rgba(0,255,255,0) 100%);
+      filter: drop-shadow(0 0 8px #f0f);
+      animation: laser-move 4.5s linear infinite,
+                 laser-flicker 1.4s infinite;
+    }
+    @keyframes laser-move {
+      0% { top: -130%; }
+      100% { top: 130%; }
+    }
+    @keyframes laser-flicker {
+      0%, 100% { opacity: 0.25; }
+      50% { opacity: 0.9; }
     }
 
-    button {
-      margin-top: 1rem;
-      padding: 10px 20px;
-      font-size: 16px;
-      background-color: #4a90e2;
-      color: white;
+    .container {
+      position: absolute;
+      inset: 0;
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1506744038136-46273834b3fb');
+      background-size: cover;
+      background-position: center;
+      color: #eefbe9;
+      padding: 20px;
+      z-index: 2;
+    }
+    .title {
+      font-size: 2em;
+      margin-bottom: 20px;
+      color: #8fffa8;
+    }
+    #chatBox {
+      width: 100%;
+      max-width: 600px;
+      height: 300px;
+      overflow-y: auto;
+      background: rgba(0, 50, 50, 0.5);
+      padding: 15px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px #4ff;
+    }
+    #chatBox p { margin: 0.5em 0; cursor: pointer; }
+    .user { color: #7efbff; }
+    .ai { color: #ffd1fb; }
+    .input-container {
+      display: flex;
+      margin-top: 15px;
+      width: 100%;
+      max-width: 600px;
+    }
+    input {
+      flex: 1;
+      padding: 10px;
+      border-radius: 8px;
       border: none;
-      border-radius: 6px;
+      font-size: 1em;
+    }
+    button {
+      padding: 10px 15px;
+      margin-left: 8px;
+      border-radius: 8px;
+      border: none;
+      background: #8fffa8;
+      color: #003030;
+      font-weight: bold;
       cursor: pointer;
     }
-
-    button:hover {
-      background-color: #357ab8;
+    .suggestion {
+      margin: 10px 5px;
+      padding: 10px 20px;
+      border-radius: 10px;
+      background: #c0ffe0;
+      color: #003020;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 0 10px #0ff;
     }
-
-    #result {
-      margin-top: 2rem;
-      font-size: 18px;
-      white-space: pre-line;
-      color: #333;
+    .avatar {
+      width: 220px;
+      height: auto;
+      margin-bottom: 20px;
+      animation: float 6s ease-in-out infinite;
+    }
+    .avatar img {
+      width: 100%;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(0,255,200,0.4);
+    }
+    @keyframes float {
+      0%   { transform: translateY(0px); }
+      50%  { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
     }
   </style>
 </head>
 <body>
-  <h1>🤖 NishAI – Discover What's Missing</h1>
-  <p>Ask NishAI to find a niche the world still needs...</p>
+  <video id="introVideo" src="https://zdrave-da.com/aiwoman/hololastvid.mp4" autoplay muted playsinline></video>
+  <audio id="bgm" src="https://zdrave-da.com/aiwoman/samurai-flu.mp3" autoplay loop></audio>
+  <div class="laser-container" id="lasers"></div>
+  <img id="transitionImage" src="https://zdrave-da.com/aiwoman/ai-helpe.png" alt="GNM AI Assistant" />
 
-  <textarea id="prompt" placeholder="e.g. What is missing in education, health or travel?"></textarea>
-  <br />
-  <button onclick="askNishAI()">Ask NishAI</button>
+  <div class="container" id="mainContent">
+    <div class="title">GNM AI Wellness Coach</div>
+    <div id="chatBox">
+      
+      <div class="avatar">
+        <img src="ai-helpe.png" alt="AI Assistant" id="avatarImage" />
+      </div>
+      <p class="ai">Hello! I'm your wellness assistant. How are you feeling today?</p>
+    </div>
+    <div class="input-container">
+  <input type="text" id="playerInput" placeholder="Share something or ask..." />
+  <button onclick="sendAnswer()">Send</button>
+  <button onclick="startVoice()">🎤</button>
+</div>
+<div id="voiceStatus">🎤 Listening…</div>
+<div id="aiThinking">🤖 Thinking…</div>
 
-  <div id="result"></div>
+    <div>
+      <button class="suggestion" onclick="sendAnswer('Guide me through a breathing practice')">🌬 Breathing</button>
+      <button class="suggestion" onclick="sendAnswer('Help me understand why I feel this way')">🧠 Awareness</button>
+      <button class="suggestion" onclick="sendAnswer('What can I do to recover and feel better?')">💚 Support</button>
+     <button onclick="readSelected()" style="position: fixed; bottom: 10px; right: 10px; z-index: 1000;">
+  🔊 Read Selected
+</button>
+<button onclick="stopSpeaking()">🛑 Спри гласа</button>
+
+<a href="https://zdrave-da.com/" class="suggestion" style="text-decoration: none;">🔙 Към Началната</a>
+
+
+    </div>
+  </div>
 
   <script>
-    async function askNishAI() {
-  const input = document.querySelector("textarea").value;
-  const responseBox = document.getElementById("response");
+    const introVideo = document.getElementById('introVideo');
+    const transitionImage = document.getElementById('transitionImage');
+    const bgm = document.getElementById('bgm');
+    const container = document.getElementById('mainContent');
+    const chatBox = document.getElementById('chatBox');
 
-  responseBox.innerText = "Thinking... 🤔";
+   introVideo.onended = () => {
+  introVideo.style.opacity = 0;
+  transitionImage.style.display = 'block';
+  setTimeout(() => {
+    transitionImage.style.opacity = 1;
+    bgm.pause();
+
+    // 🗣️ Добавяме гласово послание тук:
+    speak("Hello! I'm your wellness assistant. How are you feeling today?");
+
+    setTimeout(() => {
+      transitionImage.style.display = 'none';
+      container.style.display = 'flex';
+    }, 2500);
+  }, 800);
+};
+
+
+    (function initLasers() {
+      const laserContainer = document.getElementById('lasers');
+      for (let i = 0; i < 6; i++) {
+        const beam = document.createElement('div');
+        beam.className = 'laser-beam';
+        beam.style.left = ${Math.random() * 100}%;
+        beam.style.animationDelay = ${Math.random() * 3}s;
+        beam.style.animationDuration = ${4 + Math.random() * 2}s;
+        laserContainer.appendChild(beam);
+      }
+    })();
+
+    function appendMessage(who, text) {
+      const p = document.createElement('p');
+      p.className = who;
+      p.textContent = (who === 'user' ? '🧑 ' : '🌿 ') + text;
+      chatBox.appendChild(p);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    function speak(text) {
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'en-GB';
+      utterance.pitch = 1.2;
+      utterance.rate = 1;
+      const voices = speechSynthesis.getVoices();
+      const femaleVoice = voices.find(v =>
+        /Zira|Samantha|Google UK English Female|Karen|Eva|Zoe/i.test(v.name)
+      );
+      if (femaleVoice) {
+        utterance.voice = femaleVoice;
+      }
+      speechSynthesis.cancel();
+      speechSynthesis.speak(utterance);
+    }
+    window.speechSynthesis.onvoiceschanged = () => {};
+
+   async function sendAnswer(input = null) {
+  const inputElem = document.getElementById('playerInput');
+  const message = input || inputElem.value.trim();
+  if (!message) return;
+  appendMessage('user', message);
+  inputElem.value = '';
+
+  const aiThinking = document.getElementById('aiThinking');
+  aiThinking.style.display = 'block';
 
   try {
-    const response = await fetch("https://zdrave-da.com/aiwoman-secure/relay.php", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
+   const res = await fetch('https://zdrave-da.com/aiwoman-secure/relay.php', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    messages: [
+      {
+        role: 'system',
+        content: `You are a well-informed and experienced real estate expert specializing in the Bulgarian property market.
+You constantly analyze property listings (for sale or rent) and buyer requests publicly listed online.
+Your task is to match supply and demand and suggest realistic opportunities for commission-based deals.
+Focus on collecting, comparing and suggesting matches based on region, price, type, and other criteria.
+Communicate clearly and professionally in the same language the user uses.`
       },
-      body: JSON.stringify({ prompt: input })
-    });
+      {
+        role: 'user',
+        content: message
+      }
+    ]
+  })
+});
 
-    const data = await response.json();
-    const message = data.choices?.[0]?.message?.content;
 
-    responseBox.innerText = message || "❌ No response from AI.";
+    const data = await res.json();
+    const reply = data.choices?.[0]?.message?.content || 'No response.';
+    appendMessage('ai', reply);
+    speak(reply);
   } catch (err) {
-    responseBox.innerText = "⚠️ Error: " + err.message;
+    appendMessage('ai', '⚠️ Connection error.');
+    console.error(err);
+  } finally {
+    aiThinking.style.display = 'none';
   }
 }
-  </script>
+
+  function startVoice() {
+  // Проверка дали браузърът поддържа речево разпознаване
+  if (!('webkitSpeechRecognition' in window || 'SpeechRecognition' in window)) {
+    alert("Гласовото разпознаване не се поддържа в този браузър. Моля, използвай Chrome на Android.");
+    return;
+  }
+
+  // Създаваме recognition след като знаем, че се поддържа
+  const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+  recognition.lang = 'en-US';
+  recognition.interimResults = false;
+  recognition.maxAlternatives = 1;
+
+  const voiceStatus = document.getElementById('voiceStatus');
+  voiceStatus.style.display = 'block';
+
+  recognition.onresult = (event) => {
+    voiceStatus.style.display = 'none';
+    const transcript = event.results[0][0].transcript;
+    document.getElementById('playerInput').value = transcript;
+    sendAnswer(transcript);
+  };
+
+  recognition.onerror = (event) => {
+    voiceStatus.style.display = 'none';
+    console.error('Voice recognition error:', event.error);
+    appendMessage('ai', '⚠️ Грешка при разпознаване на гласа.');
+  };
+
+  recognition.onend = () => {
+    voiceStatus.style.display = 'none';
+  };
+
+  recognition.start();
+}
+
+
+function detectLanguage(text) {
+  const cyrillic = /[а-яА-ЯЁё]/;
+  const chinese = /[\u4e00-\u9fa5]/;
+  const japanese = /[\u3040-\u30ff\u31f0-\u31ff]/;
+  const korean = /[\uac00-\ud7af]/;
+
+  if (cyrillic.test(text)) return 'bg-BG';
+  if (chinese.test(text)) return 'zh-CN';
+  if (japanese.test(text)) return 'ja-JP';
+  if (korean.test(text)) return 'ko-KR';
+  return 'en-GB'; // default
+}
+
+  function speakSelected() {
+    const selection = window.getSelection();
+    if (!selection || selection.toString().trim() === '') {
+      alert('Please select some text to read aloud.');
+      return;
+    }
+    const text = selection.toString();
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'en-GB';
+    utterance.pitch = 1.2;
+    utterance.rate = 1;
+    const voices = speechSynthesis.getVoices();
+    const femaleVoice = voices.find(v => /Zira|Samantha|Google UK English Female|Karen|Eva|Zoe/i.test(v.name));
+    if (femaleVoice) {
+      utterance.voice = femaleVoice;
+    }
+    speechSynthesis.cancel();
+    speechSynthesis.speak(utterance);
+  }
+  
+  function speak(text) {
+  const utterance = new SpeechSynthesisUtterance(text);
+  const lang = detectLanguage(text);
+  utterance.lang = lang;
+  utterance.pitch = 1.2;
+  utterance.rate = 1;
+
+  const voices = speechSynthesis.getVoices();
+  const preferredVoice = voices.find(v => v.lang === lang && /female|Zira|Google/i.test(v.name));
+
+  if (preferredVoice) utterance.voice = preferredVoice;
+
+  speechSynthesis.cancel();
+  speechSynthesis.speak(utterance);
+}
+
+function readSelected() {
+  const selection = window.getSelection().toString().trim();
+  if (selection) {
+    speak(selection);
+  } else {
+    alert("Please select some text in the chat to read aloud.");
+  }
+}
+function stopSpeaking() {
+  speechSynthesis.cancel();
+}
+
+</script>
+
 </body>
 </html>
-
