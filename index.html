@@ -1,32 +1,25 @@
- <!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="bg">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- SEO / Google -->
-  <meta name="description" content="Your AI Wellness Assistant – Holistic guidance based on German New Medicine and intuitive awareness." />
-  <meta name="keywords" content="AI wellness assistant, holistic health, German New Medicine, mindfulness, emotional healing, GNM, self-awareness">
-  <meta name="author" content="Zdrave-da.com">
+  <meta name="description" content="Дом Ниша – AI брокер за недвижими имоти в България" />
+  <meta name="keywords" content="AI недвижими имоти, NishAgent, дом, брокер, имоти България, апартаменти, къщи, комисионни" />
+  <meta name="author" content="zdrave-da.com">
   <meta name="robots" content="index, follow">
 
-  <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
-  <meta property="og:title" content="AI Wellness Assistant – Your Inner Guide">
-  <meta property="og:description" content="Speak with an empathetic AI helper inspired by holistic wisdom and natural healing principles.">
-  <meta property="og:image" content="https://zdrave-da.com/aiwoman/featured.jpg">
+  <meta property="og:title" content="Дом Ниша – AI Брокер за Имоти">
+  <meta property="og:description" content="Попитай Дом Ниша за съвпадения между търсения и предлагани имоти в България.">
+  <meta property="og:image" content="https://zdrave-da.com/aiwoman/ai-helpe.png">
 
-
-
-  <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="AI Wellness Assistant – Your Inner Guide">
-  <meta name="twitter:description" content="Holistic, emotional and intuitive support by an AI companion.">
+  <meta name="twitter:title" content="Дом Ниша – AI Real Estate Assistant">
+  <meta name="twitter:description" content="Интелигентен AI брокер, който съпоставя имоти и търсения с комисионна.">
   <meta name="twitter:image" content="https://zdrave-da.com/aiwoman/ai-helpe.png">
 
- 
-
-  <title>GNM AI Wellness Assistant</title>
+  <title>Дом Ниша – AI Имоти</title>
   <style>
     html, body {
       margin: 0;
@@ -163,246 +156,168 @@
   <video id="introVideo" src="https://zdrave-da.com/aiwoman/hololastvid.mp4" autoplay muted playsinline></video>
   <audio id="bgm" src="https://zdrave-da.com/aiwoman/samurai-flu.mp3" autoplay loop></audio>
   <div class="laser-container" id="lasers"></div>
-  <img id="transitionImage" src="https://zdrave-da.com/aiwoman/ai-helpe.png" alt="GNM AI Assistant" />
+  <img id="transitionImage" src="https://zdrave-da.com/aiwoman/ai-helpe.png" alt="NishAgent AI" />
 
   <div class="container" id="mainContent">
-    <div class="title">GNM AI Wellness Coach</div>
+    <div class="title">Дом Ниша – AI Брокер</div>
     <div id="chatBox">
-      
       <div class="avatar">
-        <img src="ai-helpe.png" alt="AI Assistant" id="avatarImage" />
+        <img src="https://zdrave-da.com/aiwoman/ai-helpe.png" alt="AI Assistant" />
       </div>
-      <p class="ai">Hello! I'm your wellness assistant. How are you feeling today?</p>
+      <p class="ai">Здравей! Аз съм Дом Ниша – какъв имот търсим днес?</p>
     </div>
+
     <div class="input-container">
-  <input type="text" id="playerInput" placeholder="Share something or ask..." />
-  <button onclick="sendAnswer()">Send</button>
-  <button onclick="startVoice()">🎤</button>
-</div>
-<div id="voiceStatus">🎤 Listening…</div>
-<div id="aiThinking">🤖 Thinking…</div>
+      <input type="text" id="playerInput" placeholder="Напиши търсене или оферта..." />
+      <button onclick="sendAnswer()">Изпрати</button>
+      <button onclick="startVoice()">🎤</button>
+    </div>
+
+    <div id="voiceStatus">🎤 Слушам…</div>
+    <div id="aiThinking">🤖 Мисля…</div>
 
     <div>
-      <button class="suggestion" onclick="sendAnswer('Guide me through a breathing practice')">🌬 Breathing</button>
-      <button class="suggestion" onclick="sendAnswer('Help me understand why I feel this way')">🧠 Awareness</button>
-      <button class="suggestion" onclick="sendAnswer('What can I do to recover and feel better?')">💚 Support</button>
-     <button onclick="readSelected()" style="position: fixed; bottom: 10px; right: 10px; z-index: 1000;">
-  🔊 Read Selected
-</button>
-<button onclick="stopSpeaking()">🛑 Спри гласа</button>
-
-<a href="https://zdrave-da.com/" class="suggestion" style="text-decoration: none;">🔙 Към Началната</a>
-
-
+      <button class="suggestion" onclick="sendAnswer('Апартаменти под 100 000 евро в Пловдив')">🏢 Апартаменти</button>
+      <button class="suggestion" onclick="sendAnswer('Търсене на къща в Стара Загора до 120 000')">🏡 Къщи</button>
+      <button class="suggestion" onclick="sendAnswer('Какви клиенти търсят имоти около Варна?')">🔍 Клиенти</button>
+      <button onclick="readSelected()" style="position: fixed; bottom: 10px; right: 10px; z-index: 1000;">
+        🔊 Прочети
+      </button>
+      <button onclick="stopSpeaking()">🛑 Спри гласа</button>
     </div>
   </div>
 
-  <script>
-    const introVideo = document.getElementById('introVideo');
-    const transitionImage = document.getElementById('transitionImage');
-    const bgm = document.getElementById('bgm');
-    const container = document.getElementById('mainContent');
-    const chatBox = document.getElementById('chatBox');
+<script>
+  const introVideo = document.getElementById('introVideo');
+  const transitionImage = document.getElementById('transitionImage');
+  const bgm = document.getElementById('bgm');
+  const container = document.getElementById('mainContent');
+  const chatBox = document.getElementById('chatBox');
 
-   introVideo.onended = () => {
-  introVideo.style.opacity = 0;
-  transitionImage.style.display = 'block';
-  setTimeout(() => {
-    transitionImage.style.opacity = 1;
-    bgm.pause();
-
-    // 🗣️ Добавяме гласово послание тук:
-    speak("Hello! I'm your wellness assistant. How are you feeling today?");
-
+  introVideo.onended = () => {
+    introVideo.style.opacity = 0;
+    transitionImage.style.display = 'block';
     setTimeout(() => {
-      transitionImage.style.display = 'none';
-      container.style.display = 'flex';
-    }, 2500);
-  }, 800);
-};
+      transitionImage.style.opacity = 1;
+      bgm.pause();
+      speak("Здравей! Аз съм Дом Ниша – твоят AI брокер за недвижими имоти в България.");
+      setTimeout(() => {
+        transitionImage.style.display = 'none';
+        container.style.display = 'flex';
+      }, 2500);
+    }, 800);
+  };
 
-
-    (function initLasers() {
-      const laserContainer = document.getElementById('lasers');
-      for (let i = 0; i < 6; i++) {
-        const beam = document.createElement('div');
-        beam.className = 'laser-beam';
-        beam.style.left = ${Math.random() * 100}%;
-        beam.style.animationDelay = ${Math.random() * 3}s;
-        beam.style.animationDuration = ${4 + Math.random() * 2}s;
-        laserContainer.appendChild(beam);
-      }
-    })();
-
-    function appendMessage(who, text) {
-      const p = document.createElement('p');
-      p.className = who;
-      p.textContent = (who === 'user' ? '🧑 ' : '🌿 ') + text;
-      chatBox.appendChild(p);
-      chatBox.scrollTop = chatBox.scrollHeight;
+  (function initLasers() {
+    const laserContainer = document.getElementById('lasers');
+    for (let i = 0; i < 6; i++) {
+      const beam = document.createElement('div');
+      beam.className = 'laser-beam';
+      beam.style.left = `${Math.random() * 100}%`;
+      beam.style.animationDelay = `${Math.random() * 3}s`;
+      beam.style.animationDuration = `${4 + Math.random() * 2}s`;
+      laserContainer.appendChild(beam);
     }
+  })();
 
-    function speak(text) {
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = 'en-GB';
-      utterance.pitch = 1.2;
-      utterance.rate = 1;
-      const voices = speechSynthesis.getVoices();
-      const femaleVoice = voices.find(v =>
-        /Zira|Samantha|Google UK English Female|Karen|Eva|Zoe/i.test(v.name)
-      );
-      if (femaleVoice) {
-        utterance.voice = femaleVoice;
-      }
-      speechSynthesis.cancel();
-      speechSynthesis.speak(utterance);
-    }
-    window.speechSynthesis.onvoiceschanged = () => {};
-
-   async function sendAnswer(input = null) {
-  const inputElem = document.getElementById('playerInput');
-  const message = input || inputElem.value.trim();
-  if (!message) return;
-  appendMessage('user', message);
-  inputElem.value = '';
-
-  const aiThinking = document.getElementById('aiThinking');
-  aiThinking.style.display = 'block';
-
-  try {
-   const res = await fetch('https://zdrave-da.com/aiwoman-secure/relay.php', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({
-    messages: [
-      {
-        role: 'system',
-        content: `You are a well-informed and experienced real estate expert specializing in the Bulgarian property market.
-You constantly analyze property listings (for sale or rent) and buyer requests publicly listed online.
-Your task is to match supply and demand and suggest realistic opportunities for commission-based deals.
-Focus on collecting, comparing and suggesting matches based on region, price, type, and other criteria.
-Communicate clearly and professionally in the same language the user uses.`
-      },
-      {
-        role: 'user',
-        content: message
-      }
-    ]
-  })
-});
-
-
-    const data = await res.json();
-    const reply = data.choices?.[0]?.message?.content || 'No response.';
-    appendMessage('ai', reply);
-    speak(reply);
-  } catch (err) {
-    appendMessage('ai', '⚠️ Connection error.');
-    console.error(err);
-  } finally {
-    aiThinking.style.display = 'none';
-  }
-}
-
-  function startVoice() {
-  // Проверка дали браузърът поддържа речево разпознаване
-  if (!('webkitSpeechRecognition' in window || 'SpeechRecognition' in window)) {
-    alert("Гласовото разпознаване не се поддържа в този браузър. Моля, използвай Chrome на Android.");
-    return;
+  function appendMessage(who, text) {
+    const p = document.createElement('p');
+    p.className = who;
+    p.textContent = (who === 'user' ? '🧑 ' : '🏘️ ') + text;
+    chatBox.appendChild(p);
+    chatBox.scrollTop = chatBox.scrollHeight;
   }
 
-  // Създаваме recognition след като знаем, че се поддържа
-  const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
-  recognition.lang = 'en-US';
-  recognition.interimResults = false;
-  recognition.maxAlternatives = 1;
+  async function sendAnswer(input = null) {
+    const inputElem = document.getElementById('playerInput');
+    const message = input || inputElem.value.trim();
+    if (!message) return;
+    appendMessage('user', message);
+    inputElem.value = '';
 
-  const voiceStatus = document.getElementById('voiceStatus');
-  voiceStatus.style.display = 'block';
+    document.getElementById('aiThinking').style.display = 'block';
 
-  recognition.onresult = (event) => {
-    voiceStatus.style.display = 'none';
-    const transcript = event.results[0][0].transcript;
-    document.getElementById('playerInput').value = transcript;
-    sendAnswer(transcript);
-  };
+    try {
+      const res = await fetch('https://zdrave-da.com/aiwoman-secure/relay.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          messages: [
+            {
+              role: 'system',
+              content: `You are NishAgent, also known as Дом Ниша – a highly skilled AI real estate broker.
+You scan the Bulgarian online property market and detect listings and buyer requests.
+Your main role is to compare offers and demands, find matches, and suggest profitable commission-based opportunities to the user.`
+            },
+            { role: 'user', content: message }
+          ]
+        })
+      });
 
-  recognition.onerror = (event) => {
-    voiceStatus.style.display = 'none';
-    console.error('Voice recognition error:', event.error);
-    appendMessage('ai', '⚠️ Грешка при разпознаване на гласа.');
-  };
-
-  recognition.onend = () => {
-    voiceStatus.style.display = 'none';
-  };
-
-  recognition.start();
-}
-
-
-function detectLanguage(text) {
-  const cyrillic = /[а-яА-ЯЁё]/;
-  const chinese = /[\u4e00-\u9fa5]/;
-  const japanese = /[\u3040-\u30ff\u31f0-\u31ff]/;
-  const korean = /[\uac00-\ud7af]/;
-
-  if (cyrillic.test(text)) return 'bg-BG';
-  if (chinese.test(text)) return 'zh-CN';
-  if (japanese.test(text)) return 'ja-JP';
-  if (korean.test(text)) return 'ko-KR';
-  return 'en-GB'; // default
-}
-
-  function speakSelected() {
-    const selection = window.getSelection();
-    if (!selection || selection.toString().trim() === '') {
-      alert('Please select some text to read aloud.');
-      return;
+      const data = await res.json();
+      const reply = data.choices?.[0]?.message?.content || '❌ Няма отговор от AI.';
+      appendMessage('ai', reply);
+      speak(reply);
+    } catch (err) {
+      appendMessage('ai', '⚠️ Грешка при свързване.');
+      console.error(err);
+    } finally {
+      document.getElementById('aiThinking').style.display = 'none';
     }
-    const text = selection.toString();
+  }
+
+  function speak(text) {
     const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = 'en-GB';
-    utterance.pitch = 1.2;
+    utterance.lang = 'bg-BG';
+    utterance.pitch = 1.1;
     utterance.rate = 1;
     const voices = speechSynthesis.getVoices();
-    const femaleVoice = voices.find(v => /Zira|Samantha|Google UK English Female|Karen|Eva|Zoe/i.test(v.name));
-    if (femaleVoice) {
-      utterance.voice = femaleVoice;
-    }
+    utterance.voice = voices.find(v => v.lang === 'bg-BG') || voices[0];
     speechSynthesis.cancel();
     speechSynthesis.speak(utterance);
   }
-  
-  function speak(text) {
-  const utterance = new SpeechSynthesisUtterance(text);
-  const lang = detectLanguage(text);
-  utterance.lang = lang;
-  utterance.pitch = 1.2;
-  utterance.rate = 1;
 
-  const voices = speechSynthesis.getVoices();
-  const preferredVoice = voices.find(v => v.lang === lang && /female|Zira|Google/i.test(v.name));
-
-  if (preferredVoice) utterance.voice = preferredVoice;
-
-  speechSynthesis.cancel();
-  speechSynthesis.speak(utterance);
-}
-
-function readSelected() {
-  const selection = window.getSelection().toString().trim();
-  if (selection) {
-    speak(selection);
-  } else {
-    alert("Please select some text in the chat to read aloud.");
+  function readSelected() {
+    const selection = window.getSelection().toString().trim();
+    if (selection) speak(selection);
+    else alert("Маркирай текст за четене.");
   }
-}
-function stopSpeaking() {
-  speechSynthesis.cancel();
-}
 
+  function stopSpeaking() {
+    speechSynthesis.cancel();
+  }
+
+  function startVoice() {
+    if (!('webkitSpeechRecognition' in window || 'SpeechRecognition' in window)) {
+      alert("Гласовото разпознаване не се поддържа тук.");
+      return;
+    }
+
+    const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+    recognition.lang = 'bg-BG';
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 1;
+
+    document.getElementById('voiceStatus').style.display = 'block';
+
+    recognition.onresult = (event) => {
+      document.getElementById('voiceStatus').style.display = 'none';
+      const transcript = event.results[0][0].transcript;
+      document.getElementById('playerInput').value = transcript;
+      sendAnswer(transcript);
+    };
+
+    recognition.onerror = (event) => {
+      document.getElementById('voiceStatus').style.display = 'none';
+      appendMessage('ai', '⚠️ Грешка при гласово разпознаване.');
+    };
+
+    recognition.onend = () => {
+      document.getElementById('voiceStatus').style.display = 'none';
+    };
+
+    recognition.start();
+  }
 </script>
-
 </body>
 </html>
